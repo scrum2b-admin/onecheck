@@ -4,6 +4,9 @@ SUMMARY
 OneCheck is a simple interview test question system (a bit like the oDesk tests), based on Ruby On Rails.
 OneCheck is developed as Demo example in ROR technogy which I love.
 
+Demo application: 
+   http://onecheck.heroku.com
+
 
 REQUIREMENTS
 ---------------
