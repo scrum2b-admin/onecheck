@@ -11,7 +11,65 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213101747) do
+ActiveRecord::Schema.define(:version => 20121214164321) do
+
+  create_table "anwsers", :force => true do |t|
+    t.string   "content"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.integer  "application_id"
+    t.string   "result_type"
+    t.string   "result_comment"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "applications", :force => true do |t|
+    t.string   "description"
+    t.integer  "user_id"
+    t.integer  "interview_id"
+    t.string   "result_type"
+    t.string   "result_comment"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "interviews", :force => true do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.decimal  "time_test"
+    t.datetime "start_date"
+    t.datetime "due_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "options", :force => true do |t|
+    t.string   "content"
+    t.boolean  "is_correct"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.string   "content"
+    t.integer  "type"
+    t.string   "solution"
+    t.integer  "interview_id"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "selected_options", :force => true do |t|
+    t.integer  "option_id"
+    t.integer  "user_id"
+    t.integer  "answer_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
