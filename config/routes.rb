@@ -3,6 +3,11 @@ Onecheck::Application.routes.draw do
     match "/logout" => "devise/sessions#destroy"
   end
 
+  match '/my_interviews' => 'home#mine'
+  
+  resources :interviews
+  resources :apply
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
