@@ -1,0 +1,26 @@
+<tr value="<%= interview.id %>" >
+  <td><%= interview.id %></td>
+  <td><%= link_to interview.title,:controller => "interview", :action => "show", :id => interview.id %></td>
+  <td><%= interview.author.email %></td>
+  <td><%= interview.time_test %></td>
+  <td>
+    <%= Apply.count_applied(interview.id) %>
+    </td>
+  <td><%=interview.start_date.to_date%></td>
+  <% if current_user %>
+    <td> 
+         <% if Apply.is_applied(interview.id,current_user.id) == true %>
+            <p>Applied</p>
+         <% else %>
+            <p class="apply_interview" style="cursor: pointer;color:  #1E90FF">Apply</p>
+         <% end %>
+     </td> 
+  <% end %>  
+  <% if current_user %>
+    <td> 
+      <a href="#" class="delete_interview" interview_id="<%= interview.id %>"style="float: left">Delete / </a>
+       <a href="#" class="edit_interview" interview_id="<%= interview.id %>" style="float: left">Edit</a>
+    </td> 
+  <% end %>  
+  
+</tr>
