@@ -1,46 +1,82 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>OneCheck</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<body style="padding-top: 0px;">
-  
-  <div class="header" id="overview">
-    <div class="container">
-      <h1><span style="color: red;" >One</span>Check</h1>
-      <p class="lead">Online interview system</p>
+  <head>
+    <title>Onecheck</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= stylesheet_link_tag    "bootstrap.min", :media => "all" %>
+    <%= stylesheet_link_tag    "jquery-ui", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tag %> 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  </head>
+  <body>
+    <div class="header container">
+      <h1 style="font-size: 30px;line-height: 36px"><span style="color: red">One</span>Check</h1>
+      <p style="font-size: 20px;font-weight: 200;margin-bottom: 18px;line-height: 17px">
+        Online interview system
+      </p>
     </div>
-  </div>
-  
-  <%= render :partial => "/shared/main_nav" %>
-  
-  <div class="content">
+    <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <ul class="nav">
+          <li class="active">
+            <a href="/">Home</a>
+          </li>
+          <% if  user_signed_in? %>
+          <li>
+            <%= link_to 'New interview',:controller => 'interview', :action => 'new'%>
+          </li>
+          <li>
+            <%= link_to 'My interviews',:controller => 'interview', :action => 'my_interviews'%></a>
+          </li>
+          <% end %>
+        </ul>
+        <ul class="nav pull-right">
+          <% if user_signed_in? %>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+
+          <% else %>
+          <li>
+            <a href="/users/sign_in">Login</a>
+          </li>
+          <li>
+            <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+          </li>
+          <li>
+            <a href="/users/sign_up">Signup</a>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
     <div class="container">
-      <% if alert || notice %>
-        <div class="alert">     
-          <p><%= notice %></p>
-          <p><%= alert %></p>
-        </div>
-      <% end %>
       <%= yield %>
     </div>
-  </div>
-    
-  <div class="footer">
-    <div class="container">
-      <p class="pull-right"><a href="#">Back to top</a></p>
-      <p> © <a href="http://www.scrum2b.com" target="_blank">Scrum2B</a>. Made with <a href="http://twitter.com/twitter" target="_blank">@twitter</a> by <a href="http://github.com/haibt" target="_blank">@HaiBT</a>.</p>
-      <ul class="footer-links">
-        <li><a href="http://blog.getbootstrap.com">Read the blog</a></li>
-        <li><a href="https://github.com/twitter/bootstrap/issues?state=open">Submit issues</a></li>
-        <li><a href="https://github.com/twitter/bootstrap/wiki">Roadmap and changelog</a></li>
-      </ul>
-    </div>
-  </div>
 
-</body>
+    <div class="footer">
+      <div class="container">
+        <p class="pull-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>
+          © <a href="http://www.scrum2b.com" target="_blank">Scrum2B</a>. Made with <a href="http://twitter.com/twitter" target="_blank">@twitter</a> by <a href="#">@Tuanha</a>.
+        </p>
+        <ul class="footer-links">
+          <li>
+            <a href="http://blog.getbootstrap.com">Read the blog</a>
+          </li>
+          <li>
+            <a href="https://github.com/twitter/bootstrap/issues?state=open">Submit issues</a>
+          </li>
+          <li>
+            <a href="https://github.com/twitter/bootstrap/wiki">Roadmap and changelog</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
 </html>
