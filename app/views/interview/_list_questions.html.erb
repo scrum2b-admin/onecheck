@@ -1,13 +1,29 @@
 <div id="div_list_question" question_max_number="<%= Question.count_questions(interview_id)%>">
   <% @questions.each do |question|%>
     <div class="question" style="margin-top: 20px">
-      <p style="font-size: 15px;color: #0077B3;float:left;margin-right: 50px">Câu <span class="no_number"></span>:<%= question.content%></p>
-      <a href="#" class="edit" value="<%= question.id%>" style="color: #0077B3;">Edit /</a>
-      <a href="#" class="delete" value="<%= question.id%>" style="color: #0077B3">Delete</a><br /><br />
-      <% question.answers.each do |answer|%>
-        <input type="checkbox" name="check_answer"/> <%= answer.content%><br />
-      <% end %>
-    </div>  
+      <div class="question_show">
+        <p style="font-size: 15px;color: #0077B3;float:left;margin-right: 50px">Câu <span class="no_number"></span>:<%= question.content%></p>
+        <a href="#" class="edit" value="<%= question.id%>" style="color: #0077B3;">Edit /</a>
+        <a href="#" class="delete" value="<%= question.id%>" style="color: #0077B3">Delete</a><br /><br />
+        <% question.answers.each do |answer|%>
+          <input type="checkbox" name="check_answer"/> <%= answer.content%><br />
+        <% end %>
+      </div>
+      <div class="question_edit" style="border: 1px solid #e4e4e4">
+        <p>Question content:</p>
+        <input type="text" name="interview[questions][1][content]" class="question_content" value="<%= question.content%>"/>
+        <div class="list_answers">
+          <div class="answers">
+            <% question.answers.each do |answer|%>
+              <p>Answer No.<span class="no_answer"></span>:<a class="remove_answer">Remove choice</a></p>
+            <input type="text" value="<%= answer.content %>" name="interview[questions][1][answers][1][content]" /> <input type="checkbox" name="interview[questions][1][answers][1][is_correct]"/> Is correct
+            <% end %>
+          </div>
+        </div>
+        <a class="add_answer" answer_max_number="<%= Answer.count_answers(question.id)%>" question_number="1" >Add answer</a>
+        <br /><br />
+      </div>  
+    </div>
   <% end %>
 </div>
 
