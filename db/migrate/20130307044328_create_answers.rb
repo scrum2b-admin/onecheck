@@ -1,4 +1,4 @@
-class CreateAnwsers < ActiveRecord::Migration
+class CreateAnswers < ActiveRecord::Migration
   def up
      create_table :answers do |t|
       t.string :content
