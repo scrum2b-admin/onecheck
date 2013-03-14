@@ -8,21 +8,40 @@ class Interview < ActiveRecord::Base
   has_many :applies
   attr_accessible :title, :time_test, :start_date, :due_date, :user_id
   def create_questions(params,interview_id)
-    if params[:content] != nil
+    if params[:content] != ""
       @question = Question.new(:content => params[:content],:question_type => params[:question_type],:interview_id => interview_id)
-      Rails.logger.info "TTTTTTTTTTTTTTTt #{params[:answers]}"
       if @question.save
            params[:answers].each do |key,value|
-            @answer = Answer.new(:content => value[:content],:question_id => @question.id ,:is_correct => value[:is_correct])
-            unless @answer.save
-              Interview.find(interview_id).destroy()
-              Question.find(@question.id).destroy()
-              redirect_to '/interview/new'
-            end
+             if  value[:content] != nil
+                @answer = Answer.new(:content => value[:content],:question_id => @question.id ,:is_correct => value[:is_correct])
+                unless @answer.save
+                  Interview.find(interview_id).destroy()
+                  Question.find(@question.id).destroy()
+                  redirect_to '/interview/new'
+                end
+             end 
           end
       else
         Interview.find(interview_id).destroy()
         redirect_to '/interview/new'
+      end
+    end  
+  end
+  def create_questions_on_edit(params,interview_id)
+    if params[:content] != ""
+      @question = Question.new(:content => params[:content],:question_type => params[:question_type],:interview_id => interview_id)
+      if @question.save
+           params[:answers].each do |key,value|
+             if  value[:content] != nil
+                @answer = Answer.new(:content => value[:content],:question_id => @question.id ,:is_correct => value[:is_correct])
+                unless @answer.save
+                  Question.find(@question.id).destroy()
+                  redirect_to :controller => "interview", :action => "edit", :id => interview_id
+                end
+             end 
+          end
+      else
+         redirect_to :controller => "interview", :action => "edit", :id => interview_id
       end
     end  
   end

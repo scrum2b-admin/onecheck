@@ -5,4 +5,8 @@ class Question < ActiveRecord::Base
   belongs_to :interview, :class_name => 'Interview', :foreign_key => 'interview_id'
   has_many :options
   has_many :answers
+  def self.count_questions(interview_id)
+    return Question.where(:interview_id => interview_id).count
+  end
+  
 end

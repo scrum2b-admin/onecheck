@@ -16,7 +16,7 @@
   </div>
   <a href="#" id="add_question">Add question</a><br /><br />
 <input type="submit" value="submit" class="btn btn-primary" id="submit_new_interview"/>  
-<input type="submit" value="Cancel" clatn" id="cancel_new_interview"/>  
+<input type="submit" value="Cancel" class="btn" id="cancel_new_interview"/>  
 </form>
 <script>
   jQuery(function() {
@@ -29,7 +29,7 @@
        $.ajax({
          url : url_ajax,
          type : "POST",
-         dataType : "json",
+         dataType : "text",
          success : function() {}
          });
      });

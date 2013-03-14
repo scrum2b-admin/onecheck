@@ -1,6 +1,6 @@
 <tr value="<%= interview.id %>" >
   <td><%= interview.id %></td>
-  <td><%= link_to interview.title,:controller => "interview", :action => "show", :id => interview.id %></td>
+  <td><%= interview.title%></td>
   <td><%= interview.author.email %></td>
   <td><%= interview.time_test %></td>
   <td>
@@ -12,14 +12,14 @@
          <% if Apply.is_applied(interview.id,current_user.id) == true %>
             <p>Applied</p>
          <% else %>
-            <p class="apply_interview" style="cursor: pointer;color:  #1E90FF">Apply</p>
+            <p><%= link_to  "Apply",:controller => "interview", :action => "show", :id => interview.id %></p>
          <% end %>
      </td> 
   <% end %>  
   <% if current_user %>
     <td> 
       <a href="#" class="delete_interview" interview_id="<%= interview.id %>"style="float: left">Delete / </a>
-       <a href="#" class="edit_interview" interview_id="<%= interview.id %>" style="float: left">Edit</a>
+      <%= link_to "Edit",:controller => "interview", :action => "edit", :id => interview.id%>
     </td> 
   <% end %>  
   

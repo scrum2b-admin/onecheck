@@ -28,17 +28,6 @@
 </style>
 <script>
    jQuery(function() {
-      $(".apply_interview").live("click",function(){
-       var interview_id = $(this).parent().parent().attr("value")
-       var url_ajax = 'apply/apply_interview'
-       $.ajax({
-         url : url_ajax,
-         type : "POST",
-         data : 'interview_id=' + interview_id ,
-         dataType : "script",
-         success : function() {}
-         });
-     });
      $(".delete_interview").live("click",function(){
         if (confirm('Are you sure ?')) {
           var interview_id = $(this).attr("interview_id")
@@ -46,24 +35,12 @@
           $.ajax({
             url : url_ajax,
             type : "POST",
-            data : 'interview_id=' + interview_id ,
+            data : 'id=' + interview_id ,
             dataType : "script",
             success : function() {
               }
            });
         }
-     });
-     $(".edit_interview").live("click",function(){
-          var interview_id = $(this).attr("interview_id")
-          var url_ajax = 'interview/edit_interview'
-          $.ajax({
-            url : url_ajax,
-            type : "POST",
-            data : 'interview_id=' + interview_id ,
-            dataType : "text",
-            success : function() {
-              }
-           });
      });
    });
 </script>

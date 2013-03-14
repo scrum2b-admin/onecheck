@@ -1,5 +1,5 @@
 class InterviewController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new, :list]
+  before_filter :authenticate_user!, :only => [:new, :list,:edit_interview,:my_interviews,:delete]
   def new
   @interview = Interview.new
   end
@@ -25,7 +25,7 @@ class InterviewController < ApplicationController
   end
   def delete
      @inprogress_interview = Interview.where("start_date <= ?",Time.zone.now.to_date)
-     @interview = Interview.find(params[:interview_id])
+     @interview = Interview.find(params[:id])
      if @interview.destroy()
        respond_to do |format|
         format.js {
@@ -34,8 +34,24 @@ class InterviewController < ApplicationController
         end
      end
   end
-  def edit_interview
-    @interview = Interview.find(params[:interview_id])
-    Rails.logger.info "test : #{@interview}"
+  def edit
+    @interview = Interview.find(params[:id])
+    @questions = @interview.questions
+  end
+  def update
+    @interview = Interview.find(params[:interview][:id])
+    Rails.logger.info "TTTTTTTTTTTTTTt #{params[:interview][:title]}"
+    @interview.update_attributes(:title => params[:interview][:title],:start_date => params[:interview][:start_date], 
+                                 :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
+    if params[:interview][:questions]
+       params[:interview][:questions].each do |key,value|
+           @interview.create_questions_on_edit(value,@interview.id)
+       end
+     end
+    if @interview.valid? 
+       redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]  
+    else
+       redirect_to :controller => "interview", :action => "edit", :id => params[:interview][:id] 
+    end
   end
 end
