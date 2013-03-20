@@ -1,0 +1,41 @@
+<h4>Create New Interview</h4>
+<br />
+<form method="post" action="create">
+  <h4>Interview Title</h4>
+   <input type="text" id="interview_title" name="interview[title]" placeholder="Interview title..."/>
+  <h4>Start date</h4>
+    <input type="text" id="start_date" name="interview[start_date]" placeholder="Start date..."/> <span style="font-style: italic">(optional)</span>
+  <h4>Due date</h4>
+    <input type="text" id="due_date" name="interview[due_date]" placeholder="Due date..."/> <span style="font-style: italic">(optional)</span>
+  <h4>Time Test</h4>
+   <input type="text" id="time_test" name="interview[time_test]" placeholder="Time test..."/>
+  <hr />
+  <h4>Question List</h4>
+  <div id="list_question">
+     <%= render :partial => "question" %>
+  </div>
+  <a href="#" id="add_question">Add question</a><br /><br />
+<input type="submit" value="submit" class="btn btn-primary" id="submit_new_interview"/>  
+<input type="submit" value="Cancel" class="btn" id="cancel_new_interview"/>  
+</form>
+<script>
+  jQuery(function() {
+    $(".number_question").each(function(i){
+      $(this).text(i+1);
+
+    });
+     $("#submit_new_interview").click(function(){
+       var url_ajax = 'create'
+       $.ajax({
+         url : url_ajax,
+         type : "POST",
+         dataType : "text",
+         success : function() {}
+         });
+     });
+    $( "#start_date" ).datepicker();
+    $( "#due_date" ).datepicker();
+    $("#start_date").datepicker("option", "dateFormat", "yy-mm-dd");
+    $("#due_date").datepicker("option", "dateFormat", "yy-mm-dd"); 
+  })
+</script>

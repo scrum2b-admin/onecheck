@@ -1,0 +1,21 @@
+<div class="container">
+  <p style="font-size: 24px;color: #0077B3"><%= @interview.title%></p>
+  <p style="font-size: 15px;">Start Date:<%= @interview.start_date.strftime("%m/%d/%Y")%></p>
+  <p style="font-size: 15px;">Due Date:<%= @interview.due_date.strftime("%m/%d/%Y")%></p>
+  <p style="font-size: 15px;">Time Test:<%= @interview.time_test%></p>
+  <% @questions.each do |question|%>
+    <p style="font-size: 15px;color: #0077B3;margin-top: 20px;">Câu <span class="no_number"></span>:<%= question.content%></p>
+    <% question.answers.each do |answer|%>
+      <input type="checkbox" name="check_answer"/> <%= answer.content%><br />
+    <% end %>
+  <% end %>
+  <input type="submit" value="submit" class="btn btn-primary" id="submit_test"style="margin-top: 50px"/>  
+  <input type="submit" value="Cancel" clatn" id="cancel_test"style="margin-top: 50px"/>  
+</div>
+<script>
+  jQuery(function() {
+    $(".no_number").each(function(i){
+      $(this).text(i+1)
+    });
+  })
+</script>

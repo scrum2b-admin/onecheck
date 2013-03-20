@@ -1,0 +1,13 @@
+<div id="div_list_question" question_max_number="<%= Question.count_questions(interview_id)%>">
+  <% @questions.each do |question|%>
+    <div class="question" style="margin-top: 20px">
+      <p style="font-size: 15px;color: #0077B3;float:left;margin-right: 50px">Câu <span class="no_number"></span>:<%= question.content%></p>
+      <a href="#" class="edit" value="<%= question.id%>" style="color: #0077B3;">Edit /</a>
+      <a href="#" class="delete" value="<%= question.id%>" style="color: #0077B3">Delete</a><br /><br />
+      <% question.answers.each do |answer|%>
+        <input type="checkbox" name="check_answer"/> <%= answer.content%><br />
+      <% end %>
+    </div>  
+  <% end %>
+</div>
+

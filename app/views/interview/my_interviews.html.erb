@@ -1,0 +1,87 @@
+<h3>My interviews</h3>
+<h4>My applied interviews</h4>
+<table class="table table-bordered table-striped table-hover">
+   <thead>
+    <tr>
+      <th>No.</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Applied At</th>
+      <th>Time of test</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @my_applied_interviews.each do |my_interview|%>
+     <% if  my_interview.interview %>
+       <tr>
+        <td><%= my_interview.interview.id %></td>
+        <td><%= my_interview.interview.title %></td>
+        <td><%=my_interview.user.email%></td>
+        <td><%=my_interview.created_at%></td>
+        <td><%=my_interview.interview.time_test%></td>
+        <td>Succes</td>
+       </tr>
+     <% end %>  
+    <% end %>
+    
+  </tbody>
+</table>
+<br />
+<h4>My own interviews</h4>
+<table class="table table-bordered table-striped table-hover" >
+   <thead>
+    <tr>
+      <th>No.</th>
+      <th>Title</th>
+      <th>Average of Test time</th>
+      <th>Start Datet</th>
+      <th>Due Date</th>
+      <th>Applied No.</th>
+      <th>Success/Failure</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Test interview 01</td>
+      <td>01:15</td>
+      <td>17:30 - Sat, 14th Dec, 2012</td>
+      <td>17:30 - Sat, 14th Dec, 2012</td>
+      <td>12</td>
+      <td>4/8</td>
+      <td><a href="#">Close</a></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Test interview 01</td>
+      <td>01:15</td>
+      <td>17:30 - Sat, 14th Dec, 2012</td>
+      <td>17:30 - Sat, 14th Dec, 2012</td>
+      <td>15</td>
+      <td>5/8</td>
+      <td><a href="#">Close</a></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Test interview 01</td>
+      <td>01:15</td>
+      <td>17:30 - Sat, 14th Dec, 2012</td>
+      <td>17:30 - Sat, 14th Dec, 2012</td>
+      <td></td>
+      <td></td>
+      <td><a href="#">Edit Remove</a></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Test interview 01</td>
+      <td>01:15</td>
+      <td>17:30 - Sat, 14th Dec, 2012</td>
+      <td>17:30 - Sat, 14th Dec, 2012</td>
+      <td></td>
+      <td></td>
+      <td><a href="#">Edit Remove</a></td>
+    </tr>
+  </tbody>
+</table>
