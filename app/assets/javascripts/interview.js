@@ -1,4 +1,3 @@
-
 $(".add_answer").live("click", function() {
   var class_answer =  $(this).prev('.list_answers')
   var question_id =parseInt( $(this).attr("question_number"));
@@ -11,6 +10,7 @@ $(".add_answer").live("click", function() {
   class_answer.append(html_new_answer);
   return false;
 });
+
 $("#add_question").live("click",function(){
   var root_div = $(".div_question")
   var question_id = parseInt(root_div.attr("question_max_number"));

@@ -2,11 +2,11 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   require "omniauth-facebook"
-  config.omniauth :facebook, "259670540817916", "02d78fa483f86404570fe7a50965b319", :strategy_class => OmniAuth::Strategies::Facebook
+  config.omniauth :facebook, "497743503621761", "5df05aafd72550cdcb78d6e35905a9ea", :strategy_class => OmniAuth::Strategies::Facebook
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
+  config.mailer_sender = "scrum2b@ithanoi.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"

@@ -18,7 +18,7 @@ Onecheck::Application.routes.draw do
   match "/interview/edit" => "interview#edit"
   match "/interview/my_interviews" => "interview#my_interviews"
   post "/interview/create" => "interview#create"
-  match "/interview/update" => "interview#update"
+  post "/interview/update" => "interview#update"
   match "/apply/apply_interview" => "apply#apply_interview"
   match "/question/delete" => "question#delete"
   match "/question/create" => "question#create"
