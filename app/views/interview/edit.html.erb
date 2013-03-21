@@ -1,21 +1,22 @@
 <div class="container">
-    <h4>Edit Interview#<%= @interview.id%></h4>
-    <br />
-    <form method="post" action="update">
+  <h4>Edit Interview#<%= @interview.id%></h4>
+  <br />
+  <form method="post" action="update">
     <h4>Interview Title</h4>
-     <input name="interview[id]" type="text" style="display: none" value="<%= @interview.id%>" />
-     <input type="text" id="interview_title" name="interview[title]" value="<%= @interview.title%>"/>
+    <input name="interview[id]" type="text" style="display: none" value="<%= @interview.id%>" />
+    <input type="text" id="interview_title" name="interview[title]" value="<%= @interview.title%>"/>
     <h4>Start date</h4>
-      <input type="text" id="start_date" name="interview[start_date]" value="<%= @interview.start_date.strftime("%m/%d/%Y")%>"/> <span style="font-style: italic">(optional)</span>
+    <input type="text" id="start_date" name="interview[start_date]" value="<%= @interview.start_date.strftime("%m/%d/%Y")%>"/> <span style="font-style: italic">(optional)</span>
     <h4>Due date</h4>
-      <input type="text" id="due_date" name="interview[due_date]" value="<%= @interview.due_date.strftime("%m/%d/%Y")%>"/> <span style="font-style: italic">(optional)</span>
+    <input type="text" id="due_date" name="interview[due_date]" value="<%= @interview.due_date.strftime("%m/%d/%Y")%>"/> <span style="font-style: italic">(optional)</span>
     <h4>Time Test</h4>
-     <input type="text" id="time_test" name="interview[time_test]" value="<%= @interview.time_test%>"/>
+    <input type="text" id="time_test" name="interview[time_test]" value="<%= @interview.time_test%>"/>
     <hr />
     <h4>Question List</h4>
-      <%= render :partial => "list_questions" , :locals => { :questions => @questions,:interview_id => @interview.id }%>
+    <%= render :partial => "list_questions" , :locals => { :questions => @questions,:interview_id => @interview.id }%>
     <br />
-    <a href="#" class="add_question">Add question</a><br /><br />
+    <a href="#" class="add_question">Add question</a>
+    <br /><br />
     <input type="submit" value="Submit" class="btn btn-primary submit" id="submit_add_questions">  
     <input type="submit" value="Cancel" class="btn submit" id="cancel_add_questions"/>  
   </form> 

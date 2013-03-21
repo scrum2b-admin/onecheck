@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-before_filter :authenticate_user!
+  before_filter :authenticate_user!
+
   def create
     build_resource
     if resource.save
@@ -18,11 +19,8 @@ before_filter :authenticate_user!
       #end
     else
       #render_with_scope :new
-
       redirect_to '/login'
-
     end
-
   end
 
 end
