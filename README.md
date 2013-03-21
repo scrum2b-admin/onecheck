@@ -27,7 +27,13 @@ Make an admin area where we can enter questions with the option to choose 3 type
 
 3. There is an interface where the author can see and compare results.
 
-
+TECHNICAL SOLUTION
+------------------
+- Rails 3.x
+- jQuery, Twitter Bootstrap
+- RailsAdmin
+- Redis, MongoDB
+- Rspec
 
 LICENSE
 ----------
