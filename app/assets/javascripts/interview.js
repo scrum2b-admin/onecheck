@@ -6,6 +6,7 @@ $(".add_answer").live("click", function() {
   answer_id = answer_id + 1;
   $(this).attr("answer_max_number", answer_id);
   var html_new_answer = "<div class=\"answers\"><p>Answer No.<span class=\"no_answer\">"+ (answer_id) +"</span>: <a class=\"remove_answer\">Remove choice</a></p>"
+  html_new_answer += "<input type=\"text\" value=\"\" name=\"interview[questions]["+question_id+"][answers][" + answer_id + "][id]\" style=\"display: none\" />"
   html_new_answer += "<input type=\"text\" placeholder=\"Choice content...\" name=\"interview[questions]["+question_id+"][answers][" + answer_id + "][content]\" />";
   html_new_answer += " <input type=\"checkbox\" name=\"interview[questions]["+question_id+"][answers][" + answer_id + "][is_correct]\"/> Is correct </div>";
   class_answer.append(html_new_answer);
@@ -40,7 +41,7 @@ $(".remove_question").live("click",function(){
   question_id = question_id - 1;
   var question_remove = $(this).parent().parent();
   question_remove.remove();
-  var number =1 
+  var number = 1 
   $(".question").each(function(){
   $(this).find(".no_number").text(number);
   number ++;
@@ -63,6 +64,7 @@ $(".remove_answer").live("click",function(){
   });
   return false;
 });
+
 $(".remove_question_on_edit").live("click",function(){
   var question_id = parseInt($("#div_list_question").attr("question_max_number"));
   question_id = question_id - 1;
@@ -76,8 +78,7 @@ $(".remove_question_on_edit").live("click",function(){
   });
   return false;
 });
-
-
+  
 
 
 

@@ -40,16 +40,20 @@ class InterviewController < ApplicationController
   end
   def update
     @interview = Interview.find(params[:interview][:id])
-    Rails.logger.info "TTTTTTTTTTTTTTt #{params[:interview][:title]}"
     @interview.update_attributes(:title => params[:interview][:title],:start_date => params[:interview][:start_date], 
                                  :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
     if params[:interview][:questions]
        params[:interview][:questions].each do |key,value|
+         if value[:id] == ""
            @interview.create_questions_on_edit(value,@interview.id)
+         else
+           @interview.update_questions_on_edit(value)
+         end
        end
      end
-    if @interview.valid? 
-       redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]  
+    if @access == true 
+      @interview.valid? 
+      redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]  
     else
        redirect_to :controller => "interview", :action => "edit", :id => params[:interview][:id] 
     end

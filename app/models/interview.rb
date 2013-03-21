@@ -32,7 +32,7 @@ class Interview < ActiveRecord::Base
       @question = Question.new(:content => params[:content],:question_type => params[:question_type],:interview_id => interview_id)
       if @question.save
            params[:answers].each do |key,value|
-             if  value[:content] != nil
+             if  value[:content] != ""
                 @answer = Answer.new(:content => value[:content],:question_id => @question.id ,:is_correct => value[:is_correct])
                 unless @answer.save
                   Question.find(@question.id).destroy()
@@ -44,6 +44,22 @@ class Interview < ActiveRecord::Base
          redirect_to :controller => "interview", :action => "edit", :id => interview_id
       end
     end  
+  end
+  def update_questions_on_edit(params)
+      @question = Question.find(params[:id])
+      if params[:content] != ""
+        @question.update_attributes(:content => params[:content],:question_type => params[:question_type])
+      end
+      params[:answers].each do |key,value|
+         if  value[:id] == "" && value[:content] != ""
+           Rails.logger.info "TTTTTTTTTTT #{value[:content]}"    
+           @answer = Answer.new(:content => value[:content],:question_id => @question.id ,:is_correct => value[:is_correct])
+           @answer.save
+         else
+           @answer = Answer.find(value[:id])
+           @answer.update_attributes(:content => value[:content],:is_correct => value[:is_correct])
+         end
+      end  
   end
   def is_applied?
     return true if Apply.interview_id == Interview.id

@@ -3,8 +3,8 @@
   <p style="font-size: 15px;">Start Date:<%= @interview.start_date.strftime("%m/%d/%Y")%></p>
   <p style="font-size: 15px;">Due Date:<%= @interview.due_date.strftime("%m/%d/%Y")%></p>
   <p style="font-size: 15px;">Time Test:<%= @interview.time_test%></p>
-  <% @questions.each do |question|%>
-    <p style="font-size: 15px;color: #0077B3;margin-top: 20px;">Câu <span class="no_number"></span>:<%= question.content%></p>
+  <% @questions.each_with_index do |question,index|%>
+    <p style="font-size: 15px;color: #0077B3;margin-top: 20px;">Câu<%= index + 1%>:<%= question.content%></p>
     <% question.answers.each do |answer|%>
       <input type="checkbox" name="check_answer"/> <%= answer.content%><br />
     <% end %>
@@ -14,8 +14,5 @@
 </div>
 <script>
   jQuery(function() {
-    $(".no_number").each(function(i){
-      $(this).text(i+1)
-    });
   })
 </script>
