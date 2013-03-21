@@ -15,6 +15,7 @@ class InterviewController < ApplicationController
   end
 
   def create
+    #TODO: you should create a function like Interview.parse(param), Question.parse(param), Answer.parse(params) to analyse the parameters to create interview, with questions and answers
     @interview = Interview.new(:title => params[:interview][:title],:start_date => params[:interview][:start_date],:user_id => current_user.id,
                                :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
     if @interview.save

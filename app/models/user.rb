@@ -10,17 +10,16 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-  user = User.where(:provider => auth.provider, :uid => auth.uid).first
-  
-  unless user
-    user = User.create( provider:auth.provider,
-                         uid:auth.uid,
-                         email:auth.info.email,
-                         password:Devise.friendly_token[0,20]
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      user = User.create( provider:auth.provider,
+                           uid:auth.uid,
+                           email:auth.info.email,
+                           password:Devise.friendly_token[0,20]
                          )
-     Rails.logger.info "Test_PARAMS POSITION #{user.to_s}";                    
-  end
-  return user
+       Rails.logger.info "Test_PARAMS POSITION #{user.to_s}";                    
+    end
+    return user
   end
   
   def self.new_with_session(params, session)
