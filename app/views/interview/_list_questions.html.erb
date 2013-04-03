@@ -9,7 +9,7 @@
           <input type="checkbox" name="check_answer"/> <%= answer.content%><br />
         <% end %>
       </div>
-      <div class="question_edit" style="border: 1px solid #e4e4e4">
+      <div class="question_edit" style="border: 1px solid #e4e4e4;display: none">
         <p>Question content:</p>
         <input type="text" name="interview[questions][1][content]" class="question_content" value="<%= question.content%>"/>
         <div class="list_answers">

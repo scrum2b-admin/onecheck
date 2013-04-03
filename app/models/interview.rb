@@ -15,48 +15,6 @@ class Interview < ActiveRecord::Base
     #return Interview object    
   end
   
-  #TODO: move this function into Question class
-  def create_questions(params,interview_id)
-    if params[:content] != ""
-      @question = Question.new(:content => params[:content],:question_type => params[:question_type],:interview_id => interview_id)
-      if @question.save
-           params[:answers].each do |key,value|
-             if  value[:content] != nil
-                @answer = Answer.new(:content => value[:content],:question_id => @question.id ,:is_correct => value[:is_correct])
-                unless @answer.save
-                  Interview.find(interview_id).destroy()
-                  Question.find(@question.id).destroy()
-                  redirect_to '/interview/new'
-                end
-             end 
-          end
-      else
-        Interview.find(interview_id).destroy()
-        redirect_to '/interview/new'
-      end
-    end
-  end
-
-  #TODO: move this function into Question class
-  def create_questions_on_edit(params,interview_id)
-    if params[:content] != ""
-      @question = Question.new(:content => params[:content],:question_type => params[:question_type],:interview_id => interview_id)
-      if @question.save
-           params[:answers].each do |key,value|
-             if  value[:content] != nil
-                @answer = Answer.new(:content => value[:content],:question_id => @question.id ,:is_correct => value[:is_correct])
-                unless @answer.save
-                  Question.find(@question.id).destroy()
-                  redirect_to :controller => "interview", :action => "edit", :id => interview_id
-                end
-             end 
-          end
-      else
-         redirect_to :controller => "interview", :action => "edit", :id => interview_id
-      end
-    end  
-  end
-  
   def is_applied?
     return true if Apply.interview_id == Interview.id    
   end

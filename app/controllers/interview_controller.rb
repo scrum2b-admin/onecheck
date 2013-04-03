@@ -18,9 +18,10 @@ class InterviewController < ApplicationController
     #TODO: you should create a function like Interview.parse(param), Question.parse(param), Answer.parse(params) to analyse the parameters to create interview, with questions and answers
     @interview = Interview.new(:title => params[:interview][:title],:start_date => params[:interview][:start_date],:user_id => current_user.id,
                                :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
+    @question = Question.new
     if @interview.save
       params[:interview][:questions].each do |key,value|
-        @interview.create_questions(value,@interview.id)
+        @question.create_questions(value,@interview.id)
       end
       redirect_to "/"
     else
@@ -46,13 +47,13 @@ class InterviewController < ApplicationController
   end
 
   def update
+    @question = Question.new
     @interview = Interview.find(params[:interview][:id])
-    Rails.logger.info "TTTTTTTTTTTTTTt #{params[:interview][:title]}"
     @interview.update_attributes(:title => params[:interview][:title],:start_date => params[:interview][:start_date],
     :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
     if params[:interview][:questions]
       params[:interview][:questions].each do |key,value|
-        @interview.create_questions_on_edit(value,@interview.id)
+        @question.create_questions_on_edit(value,)
       end
     end
     if @interview.valid?
