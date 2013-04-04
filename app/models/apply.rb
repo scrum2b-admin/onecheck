@@ -2,7 +2,7 @@ class Apply < ActiveRecord::Base
   # attr_accessible :title, :body
   belongs_to :user, :class_name => 'User', :foreign_key => 'user_id'
   belongs_to :interview, :class_name => 'Interview', :foreign_key => 'interview_id'
-  attr_accessible :interview_id , :user_id, :answer_true
+  attr_accessible :interview_id , :user_id, :answer_true, :time_test
   def self.count_applied(interview_id)
     return Apply.where(:interview_id => interview_id).count
   end
