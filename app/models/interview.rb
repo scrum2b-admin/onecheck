@@ -8,15 +8,18 @@ class Interview < ActiveRecord::Base
   has_many  :questions
   has_many :applies
   attr_accessible :title, :time_test, :start_date, :due_date, :user_id  
-  
   #TODO: function to parse params to create and return an Interview object
   #params is Hash object with keys :content, :start_date (String object), :due_date (String object), :questions (array of Hash objects store information of Questions)
-  def self.parse(params)
-    #return Interview object    
+  def self.parse(params,user_id)
+     interview= Interview.new(:title => params[:title],:start_date => params[:start_date],:user_id => user_id,
+                               :due_date => params[:due_date], :time_test => params[:time_test])
+     interview.save
+     return interview
   end
   
   def is_applied?
     return true if Apply.interview_id == Interview.id    
   end
   
+
 end

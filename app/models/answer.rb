@@ -16,10 +16,13 @@ class Answer < ActiveRecord::Base
     return true if answer.is_correct
   end
   def self.parse(params)
-    answer = Answer.new(:content => params[:content], :is_correct => params[:is_correct])
-    answer.question = params[:question]
+    Rails.logger.info "param answer on answer #{params}"
+    params[:answers].each do |key,param|
+    answer = Answer.new(:content => param[:content], :is_correct => param[:is_correct])
+    answer.question_id = params[:question_id]
     answer.save
     return answer
+    end
   end
 
 end
