@@ -7,7 +7,7 @@
       <th>Time of test</th>
       <th>Applied No.</th>
       <th>Due date</th>
-      <% if current_user %>
+      <% if current_user && !@inprogress_interview.empty? %>
         <th></th>
         <th></th>
       <% end %>

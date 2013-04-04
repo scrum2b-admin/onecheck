@@ -11,7 +11,6 @@ class InterviewController < ApplicationController
 
   def my_interviews
     @my_applied_interviews = Apply.where(:user_id => current_user.id)
-    Rails.logger.info "test #{@my_applied_interviews}"
   end
 
   def create

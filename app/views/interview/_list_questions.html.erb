@@ -16,7 +16,7 @@
           <div class="answers">
             <% question.answers.each do |answer|%>
               <p>Answer No.<span class="no_answer"></span>:<a class="remove_answer">Remove choice</a></p>
-            <input type="text" value="<%= answer.content %>" name="interview[questions][1][answers][1][content]" /> <input type="checkbox" name="interview[questions][1][answers][1][is_correct]"/> Is correct
+              <input type="text" value="<%= answer.content %>" name="interview[questions][1][answers][1][content]" /> <input type="checkbox" name="interview[questions][1][answers][1][is_correct]"/> Is correct
             <% end %>
           </div>
         </div>
