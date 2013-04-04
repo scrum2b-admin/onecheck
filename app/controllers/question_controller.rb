@@ -1,10 +1,11 @@
 class QuestionController < ApplicationController
 
   def create
-    @question = Question.new
-    params[:interview][:questions].each do |key,value|
-      @question.create_questions_on_edit(value,params[:interview][:id])
-    end
+    # params[:interview][:questions].each do |key,value|
+    # parse_qt(value,params[:interview])
+    # end
+    @interview = params[:interview]
+   @interview.parse_qt(params[:interview])
     redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]
   end
 

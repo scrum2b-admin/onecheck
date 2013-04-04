@@ -10,10 +10,13 @@ class Answer < ActiveRecord::Base
   #TODO: function to parse params to create and return an answer
   #params is Hash object with keys :content, :is_correct, :question (Question object)
   def self.parse(params)
-    answer = Answer.new(:content => params[:content], :is_correct => params[:is_correct])
-    answer.question = params[:question]
+    Rails.logger.info "param answer on answer #{params}"
+    params[:answers].each do |key,param|
+    answer = Answer.new(:content => param[:content], :is_correct => param[:is_correct])
+    answer.question_id = params[:question_id]
     answer.save
     return answer
+    end
   end
 
 end
