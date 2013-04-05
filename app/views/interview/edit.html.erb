@@ -1,25 +1,7 @@
 <div class="container">
   <h4>Edit Interview#<%= @interview.id%></h4>
   <br />
-  <form method="post" action="update">
-    <h4>Interview Title</h4>
-    <input name="interview[id]" type="text" style="display: none" value="<%= @interview.id%>" />
-    <input type="text" id="interview_title" name="interview[title]" value="<%= @interview.title%>"/>
-    <h4>Start date</h4>
-    <input type="text" id="start_date" name="interview[start_date]" value="<%= @interview.start_date.strftime("%m/%d/%Y")%>"/> <span style="font-style: italic">(optional)</span>
-    <h4>Due date</h4>
-    <input type="text" id="due_date" name="interview[due_date]" value="<%= @interview.due_date.strftime("%m/%d/%Y")%>"/> <span style="font-style: italic">(optional)</span>
-    <h4>Time Test</h4>
-    <input type="text" id="time_test" name="interview[time_test]" value="<%= @interview.time_test%>"/>
-    <hr />
-    <h4>Question List</h4>
-    <%= render :partial => "list_questions" , :locals => { :questions => @questions,:interview_id => @interview.id }%>
-    <br />
-    <a href="#" class="add_question">Add question</a>
-    <br /><br />
-    <input type="submit" value="Submit" class="btn btn-primary submit" id="submit_add_questions">  
-    <input type="submit" value="Cancel" class="btn submit" id="cancel_add_questions"/>  
-  </form> 
+<%= render :partial => "form",:locals => {:interview => @interview ,:questions => @questions} %>
 </div>
 <style>
   .edit:hover {
@@ -30,51 +12,47 @@
   }
 </style>
 <script>
-  jQuery(function() {
-    $(".no_number").each(function(i){
-      $(this).text(i+1)
-    });
-    $(".delete").live("click",function(){
-      if (confirm('Are you sure ?')) {
-          var id = $(this).attr("value")
-          var url_ajax = '/question/delete'
-          $.ajax({
-            url : url_ajax,
-            type : "POST",
-            data : 'id=' + id ,
-            dataType : "script",
-            success : function() {
-              }
-           });
-        }
-    });
-    $(".add_question").live("click",function(){
-    var question_id = parseInt($("#div_list_question").attr("question_max_number"));
-    question_id = question_id + 1;
-    $("#div_list_question").attr("question_max_number", question_id);
-    var html_new_question = "<div class=\"question\" style=\"margin-top:30px;color: #0077B3\"><p>Câu <span class=\"no_number\">" + (question_id) +":</span> <a href=\"#\" class=\"remove_question_on_edit\">remove question</a></p>"
-    html_new_question += "<p>Question</p>"
-    html_new_question +=  "<input type=\"text\" class=\"question_content\" name=\"interview[questions][" + question_id + "][content]\" question_id=\""+ question_id +"\" placeholder=\"question content...\"/>"
-    html_new_question +=  "<p>Question type</p>"
-    html_new_question += "<select name=\"interview[questions]["+ question_id +"][question_type]\" class=\"btn\">"
-    html_new_question +=    "<option value=\"multil\">Multil Choice </option>"
-    html_new_question +=    "<option value=\"exact\">Exact answer </option>"
-    html_new_question +=    " <option value=\"open\">Open answer </option>"
-    html_new_question +=  "</select>"
-    html_new_question +=  "<p>Choice answers</p>"
-    html_new_question +=  "<div class=\"list_answers\">"
-    html_new_question +=    "<div class=\"answers\"><p>Answer No.<span class=\"no_answer\">1</span>: <a class=\"remove_answer\">Remove choice</a></p>"
-    html_new_question +=    "<input type=\"text\" placeholder=\"Choice content...\"name=\"interview[questions]["+ question_id +"][answers][1][content]\" /> <input type=\"checkbox\" name=\"interview[questions]["+ question_id + "][answers][1][is_correct]\"/> Is correct"
-    html_new_question +=  "</div></div>"
-    html_new_question += " <a class=\"add_answer\" answer_max_number=\"1\" question_number=\""+ question_id +"\">Add answer</a>"
-    html_new_question +=  "<br /><br /></div>";
-    $("#div_list_question").append(html_new_question);
-    $("input.submit").show();
-    return false;
-  });
-  $( "#start_date" ).datepicker();
-    $( "#due_date" ).datepicker();
-    $("#start_date").datepicker("option", "dateFormat", "yy-mm-dd");
-    $("#due_date").datepicker("option", "dateFormat", "yy-mm-dd");
- });
+  // jQuery(function() {
+    // $(".no_number").each(function(i){
+      // $(this).text(i+1)
+    // });
+    // $(".delete").live("click",function(){
+      // if (confirm('Are you sure ?')) {
+          // var id = $(this).attr("value")
+          // var url_ajax = '/question/delete'
+          // $.ajax({
+            // url : url_ajax,
+            // type : "POST",
+            // data : 'id=' + id ,
+            // dataType : "script",
+            // success : function() {
+              // }
+           // });
+        // }
+    // });
+    // $(".add_question").live("click",function(){
+    // var question_id = parseInt($("#div_list_question").attr("question_max_number"));
+    // question_id = question_id + 1;
+    // $("#div_list_question").attr("question_max_number", question_id);
+    // var html_new_question = "<div class=\"question\" style=\"margin-top:30px;color: #0077B3\"><p>Câu <span class=\"no_number\">" + (question_id) +":</span> <a href=\"#\" class=\"remove_question_on_edit\">remove question</a></p>"
+    // html_new_question += "<p>Question</p>"
+    // html_new_question +=  "<input type=\"text\" class=\"question_content\" name=\"interview[questions][" + question_id + "][content]\" question_id=\""+ question_id +"\" placeholder=\"question content...\"/>"
+    // html_new_question +=  "<p>Question type</p>"
+    // html_new_question += "<select name=\"interview[questions]["+ question_id +"][question_type]\" class=\"btn\">"
+    // html_new_question +=    "<option value=\"multil\">Multil Choice </option>"
+    // html_new_question +=    "<option value=\"exact\">Exact answer </option>"
+    // html_new_question +=    " <option value=\"open\">Open answer </option>"
+    // html_new_question +=  "</select>"
+    // html_new_question +=  "<p>Choice answers</p>"
+    // html_new_question +=  "<div class=\"list_answers\">"
+    // html_new_question +=    "<div class=\"answers\"><p>Answer No.<span class=\"no_answer\">1</span>: <a class=\"remove_answer\">Remove choice</a></p>"
+    // html_new_question +=    "<input type=\"text\" placeholder=\"Choice content...\"name=\"interview[questions]["+ question_id +"][answers][1][content]\" /> <input type=\"checkbox\" name=\"interview[questions]["+ question_id + "][answers][1][is_correct]\"/> Is correct"
+    // html_new_question +=  "</div></div>"
+    // html_new_question += " <a class=\"add_answer\" answer_max_number=\"1\" question_number=\""+ question_id +"\">Add answer</a>"
+    // html_new_question +=  "<br /><br /></div>";
+    // $("#div_list_question").append(html_new_question);
+    // $("input.submit").show();
+    // return false;
+  // });
+
 </script>

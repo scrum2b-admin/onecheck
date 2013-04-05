@@ -2,11 +2,15 @@ class InterviewController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :list, :edit_interview, :my_interviews, :delete]
 
   before_filter :check_interview, :only => [:create,:new]
+  
+  def new
+    @interview = Interview.new
+  end
   def show
     @interview = Interview.find(params[:id])
     @questions = @interview.questions
   end
-
+  
   def my_interviews
     @my_applied_interviews = Apply.where(:user_id => current_user.id)
   end
@@ -14,11 +18,14 @@ class InterviewController < ApplicationController
   def create
     @interview = Interview.parse(params[:interview],current_user.id)
     if @interview.save
-    Rails.logger.info "params_id #{@interview.id}"
-    params[:interview].merge!(:id => @interview.id)
-    @question= Question.parse(params[:interview])
-    #params[:interview][:questions].merge!(:question_id => @question.id)
-    #@answer = Answer.parse(params[:interview][:questions])
+      params[:interview][:questions].each do |key,value|
+        @question=Question.parse(value,@interview.id)
+        if @question.save
+          value[:answers].each do |k,v|
+          @answer = Answer.parse(v,@question.id)
+          end
+        end
+      end
     end
     redirect_to "/"
   end

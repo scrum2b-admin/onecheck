@@ -10,7 +10,7 @@ class ApplyController < ApplicationController
     end  
     @apply = Apply.new(:interview_id => params[:interview][:id], :user_id => current_user.id, :answer_true => answer_true.length,:time_test => @time_tested )
     if @apply.save
-      redirect_to "/"
+      redirect_to :controller => "interview",:action => "my_interviews"
     end
   end
 end

@@ -15,7 +15,7 @@
     <% @my_applied_interviews.each do |my_interview|%>
      <% if  my_interview.interview %>
        <tr>
-        <td><%= my_interview.interview.id %></td>
+        <td><%= my_interview.id %></td>
         <td><%= my_interview.interview.title %></td>
         <td><%=my_interview.user.email%></td>
         <td><%=my_interview.created_at.to_date%></td>

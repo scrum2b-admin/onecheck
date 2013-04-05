@@ -1,4 +1,4 @@
-<div id="div_list_question" question_max_number="<%= Question.count_questions(interview_id)%>">
+<div id="div_question" question_max_number="<%= Question.count_questions(interview_id)%>">
   <% @questions.each do |question|%>
     <div class="question" style="margin-top: 20px">
       <div class="question_show">
