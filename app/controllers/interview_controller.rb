@@ -1,8 +1,6 @@
 class InterviewController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :list, :edit_interview, :my_interviews, :delete]
 
-  before_filter :check_interview, :only => [:create,:new]
-  
   def new
     @interview = Interview.new
   end
@@ -48,26 +46,19 @@ class InterviewController < ApplicationController
   end
 
   def update
-    @question = Question.new
     @interview = Interview.find(params[:interview][:id])
     @interview.update_attributes(:title => params[:interview][:title],:start_date => params[:interview][:start_date],
-    :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
-    if params[:interview][:questions]
-      params[:interview][:questions].each do |key,value|
-        @question.create_questions_on_edit(value,)
-      end
-    end
-    if @interview.valid?
-      redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]
-    else
+                                 :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
+    # if params[:interview][:questions]
+      # params[:interview][:questions].each do |key,value|
+        # @question.create_questions_on_edit(value,)
+      # end
+    # end
+    # if @interview.valid?
+      # redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]
+    # else
       redirect_to :controller => "interview", :action => "edit", :id => params[:interview][:id]
-    end
-  end
-
-  def check_interview
-    @interview = Interview.new
-    @question = Question.new
-    @answer = Answer.new
+    #end
   end
 
 end
