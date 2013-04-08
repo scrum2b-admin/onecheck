@@ -49,16 +49,28 @@ class InterviewController < ApplicationController
     @interview = Interview.find(params[:interview][:id])
     @interview.update_attributes(:title => params[:interview][:title],:start_date => params[:interview][:start_date],
                                  :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
-    # if params[:interview][:questions]
-      # params[:interview][:questions].each do |key,value|
-        # @question.create_questions_on_edit(value,)
-      # end
-    # end
-    # if @interview.valid?
-      # redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]
-    # else
-      redirect_to :controller => "interview", :action => "edit", :id => params[:interview][:id]
-    #end
+    if params[:interview][:questions]
+       params[:interview][:questions].each do |key,value|
+         if value[:id]
+           @question=Question.update(value)
+           value[:answers].each do |k,v|
+             if v[:id]
+               @answer = Answer.update(v)
+             else
+               @answer = Answer.parse(v,value[:id])
+             end
+           end
+         else
+           @question=Question.parse(value,@interview.id)
+           if @question.save
+             value[:answers].each do |k,v|
+                @answer = Answer.parse(v,@question.id)
+             end
+           end
+         end
+       end
+    end
+    redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]
   end
 
 end

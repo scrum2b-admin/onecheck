@@ -20,5 +20,9 @@ class Answer < ActiveRecord::Base
     answer = Answer.new(:content => params[:content], :is_correct => params[:is_correct],:question_id => question_id)
     answer.save
   end
-
+  
+  def self.update(params)
+    answer = Answer.find(params[:id])
+    answer.update_attributes(:content => params[:content],:is_correct => params[:is_correct])
+  end
 end

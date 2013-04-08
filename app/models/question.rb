@@ -14,10 +14,13 @@ class Question < ActiveRecord::Base
   end
     
   def self.parse(params,interview_id)
-    Rails.logger.info "param on question #{params}"
     @question = Question.new(:content => params[:content],:question_type => params[:question_type],:interview_id => interview_id)
     @question.save
     return @question
   end
   
+  def self.update(params)
+    @question = Question.find(params[:id])
+    @question.update_attribute(:content,params[:content])
+  end
 end
