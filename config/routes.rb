@@ -21,7 +21,7 @@ Onecheck::Application.routes.draw do
   post "/interview/update" => "interview#update"
   match "/apply/apply_interview" => "apply#apply_interview"
   match "/question/delete" => "question#delete"
-  match "/question/create" => "question#create"
+  match "/answer/delete" => "answer#delete"
   #match "/interview/remove_question" => "interview#remove_question"
   # The priority is based upon order of creation:
   # first created -> highest priority.

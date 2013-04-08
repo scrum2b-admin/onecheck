@@ -13,7 +13,7 @@
 </style>
 <script>
    jQuery(function() {
-     $(".no_number").each(function(i){
+    $(".no_number").each(function(i){
       $(this).text(i+1);
     });
     $("#interview_start_date").datepicker();
@@ -80,7 +80,20 @@
     $(".remove_answer").live("click",function(){
       var answer_remove = $(this).parent().parent();
       var class_answer = answer_remove.parent();
+      var answer_id = $(this).attr("value");
+      var url_ajax = '/answer/delete'
       var number =1 ;
+      if (answer_id != ""){
+        $.ajax({
+          url : url_ajax,
+          type : "POST",
+          data : 'answer_id=' + answer_id,
+          dataType : "text",
+          success : function() {
+          //  location.reload();
+            }
+        });
+      }
       answer_remove.remove();
       class_answer.find(".answers").each(function(){
       $(this).find(".no_answer").text(number);
@@ -88,10 +101,34 @@
       });
       return false;
     });
-    $(".edit").live("click",function(){
+    $(".edit_question").live("click",function(){
       $(this).parent().hide()
       $(this).parent().parent().find(".question_edit").show()
       return false;
     })
+    
+    $(".delete_question").live("click",function(){
+      if (confirm('Are you sure ?')) {
+        var question_remove = $(this).parent().parent();
+        var url_ajax = '/question/delete';
+        var number =1;
+        var question_id = $(this).attr("value");
+        question_remove.remove();
+        $(".question").each(function(){
+          $(this).find(".no_number").text(number);
+          number ++;
+        });
+        $.ajax({
+          url : url_ajax,
+          type : "POST",
+          data : 'question_id=' + question_id,
+          dataType : "text",
+          success : function() {
+          //  location.reload();
+            }
+        });
+        return false;
+      }
+    });
   });
 </script>

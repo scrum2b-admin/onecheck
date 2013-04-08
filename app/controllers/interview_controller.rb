@@ -61,12 +61,16 @@ class InterviewController < ApplicationController
              end
            end
          else
+           if value[:content] != "" 
            @question=Question.parse(value,@interview.id)
-           if @question.save
-             value[:answers].each do |k,v|
-                @answer = Answer.parse(v,@question.id)
+             if @question.save
+               value[:answers].each do |k,v|
+                 if v[:content] != ""
+                   @answer = Answer.parse(v,@question.id)
+                 end
+               end
              end
-           end
+           end  
          end
        end
     end
