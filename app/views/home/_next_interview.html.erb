@@ -1,6 +1,6 @@
 <tr>
   <td><%= interview.id %></td>
-  <td><%= link_to interview.title,:controller => "interview", :action => "show", :id => interview.id %></td>
+  <td><%= interview.title%></td>
   <td><%= interview.author.email %></td>
   <td><%= interview.time_test %></td>
   <td><%= interview.start_date.to_date %></td>

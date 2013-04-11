@@ -6,10 +6,10 @@ Onecheck::Application.routes.draw do
   devise_scope :user do
   #get 'sign_in', :to => 'users/sessions#new', :as => :new_user_session
   #get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
-    match "/login" => "devise/sessions#new" # Add a custom sign in route for user sign in
-    match "/logout" => "devise/sessions#destroy" # Add a custom sing out route for user sign out
-    match "/login/forgot-password" => "devise/passwords#new" # Add a Custom Route for Forgot password
-    match "/login/restore-password" => "devise/passwords#create" # Add a Custom Route for Forgot password
+  match "/login" => "devise/sessions#new" # Add a custom sign in route for user sign in
+  match "/logout" => "devise/sessions#destroy" # Add a custom sing out route for user sign out
+  match "/login/forgot-password" => "devise/passwords#new" # Add a Custom Route for Forgot password
+  match "/login/restore-password" => "devise/passwords#create" # Add a Custom Route for Forgot password
 
   end
   match "/interview/new" => "interview#new"
@@ -17,6 +17,7 @@ Onecheck::Application.routes.draw do
   match "/interview/delete" => "interview#delete"
   match "/interview/edit" => "interview#edit"
   match "/interview/my_interviews" => "interview#my_interviews"
+  match "/interview/close" => "interview#close"
   post "/interview/create" => "interview#create"
   post "/interview/update" => "interview#update"
   match "/apply/apply_interview" => "apply#apply_interview"

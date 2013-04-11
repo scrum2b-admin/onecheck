@@ -1,5 +1,5 @@
 <div class="container">
-  <h4>Edit Interview#<%= @interview.id%></h4>
+  <h4>Edit Interview: <%= @interview.title%></h4>
   <br />
 <%= render :partial => "form",:locals => {:interview => @interview ,:questions => @questions} %>
 </div>
@@ -75,7 +75,7 @@
       $(this).find(".no_answer").text(number);
       number ++;
       });
-      return false;
+      return false
     });
     $(".remove_answer").live("click",function(){
       var answer_remove = $(this).parent().parent();

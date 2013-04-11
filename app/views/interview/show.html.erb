@@ -8,9 +8,11 @@
     <p style="font-size: 15px;">Time Test:<%= @interview.time_test%></p>
     <% @questions.each_with_index do |question,index_qt|%>
       <p style="font-size: 15px;color: #0077B3;margin-top: 20px;">Câu <%= index_qt +1%>:<%= question.content%></p>
-      <% question.answers.each do |answer|%>
-        <input type="checkbox" name="interview[answer][<%= index_qt +1%>][is_correct]" value="<%= answer.id%>"/> <%= answer.content%><br />
-      <% end %>
+      <div class="list_answers_show">
+        <% question.answers.each do |answer|%>
+          <input type="checkbox" name="interview[answer][<%= index_qt +1%>][is_correct]" class="checkbox" value="<%= answer.id%>"/> <%= answer.content%><br />
+        <% end %>
+      </div>  
     <% end %>
     <input type="submit" value="submit" class="btn btn-primary" id="submit_test"style="margin-top: 50px"/>  
     <input type="submit" value="Cancel" class="btn" id="cancel_test"style="margin-top: 50px"/>  
@@ -25,8 +27,15 @@
     border-right-color:#FFFFFF
   }
 </style>
+<script>
+   jQuery(function() {
+     $(".checkbox").live("click",function(){
+       $(this).parent().find(".checkbox").removeAttr('checked');
+       $(this).attr( 'checked','checked');
+     });
+   });
+</script>   
 <script language="javascript">
-  
   var mins
   var secs;
   function cd() {

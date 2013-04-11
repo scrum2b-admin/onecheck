@@ -4,4 +4,5 @@ class QuestionController < ApplicationController
     @question = Question.find(params[:question_id])
     @question.destroy()
   end
+
 end

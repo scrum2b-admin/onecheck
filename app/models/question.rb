@@ -23,4 +23,5 @@ class Question < ActiveRecord::Base
     @question = Question.find(params[:id])
     @question.update_attribute(:content,params[:content])
   end
+
 end

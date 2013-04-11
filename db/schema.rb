@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404043615) do
+ActiveRecord::Schema.define(:version => 20130411031742) do
 
   create_table "answers", :force => true do |t|
     t.string   "content"
@@ -46,8 +46,9 @@ ActiveRecord::Schema.define(:version => 20130404043615) do
     t.decimal  "time_test",  :precision => 4, :scale => 2
     t.datetime "start_date"
     t.datetime "due_date"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
+    t.boolean  "is_closed",                                :default => false
   end
 
   create_table "options", :force => true do |t|
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20130404043615) do
     t.datetime "updated_at",                             :null => false
     t.string   "provider"
     t.string   "uid"
+    t.boolean  "is_admin"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

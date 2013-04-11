@@ -12,46 +12,44 @@
     </tr>
   </thead>
   <tbody>
-    <% @my_applied_interviews.each do |my_interview|%>
-     <% if  my_interview.interview %>
-       <tr>
-        <td><%= my_interview.id %></td>
-        <td><%= my_interview.interview.title %></td>
-        <td><%=my_interview.user.email%></td>
-        <td><%=my_interview.created_at.to_date%></td>
-        <td><%=my_interview.time_test%></td>
-        <td>Succes</td>
-       </tr>
-     <% end %>  
-    <% end %>
-    
+    <% if  @my_applied_interviews.empty? %>
+      <tr class="info">
+        <td colspan="6">No data to show</td>
+      </tr>
+    <% else %>
+      <% @my_applied_interviews.each do |my_interview|%>
+        <tr>
+          <td><%= my_interview.id %></td>
+          <td><%= my_interview.interview.title %></td>
+          <td><%= my_interview.user.email%></td>
+          <td><%= my_interview.created_at.to_date%></td>
+          <td><%= my_interview.time_test%></td>
+          <td>Succes/<%= link_to "Edit",:controller => "interview", :action => "show", :id => my_interview.interview.id%></td>
+        </tr>
+      <% end %>  
+    <% end %>  
   </tbody>
 </table>
 <br />
 <h4>My own interviews</h4>
-<table class="table table-bordered table-striped table-hover" >
-   <thead>
-    <tr>
-      <th>No.</th>
-      <th>Title</th>
-      <th>Average of Test time</th>
-      <th>Start Datet</th>
-      <th>Due Date</th>
-      <th>Applied No.</th>
-      <th>Success/Failure</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Test interview 01</td>
-      <td>01:15</td>
-      <td>17:30 - Sat, 14th Dec, 2012</td>
-      <td>17:30 - Sat, 14th Dec, 2012</td>
-      <td>12</td>
-      <td>4/8</td>
-      <td><a href="#">Close</a></td>
-    </tr>
-  </tbody>
-</table>
+<%= render :partial => "my_own_interviews" , :locals => {:my_own_interviews => @my_own_interviews}%>
+
+<script>
+   jQuery(function() {
+     $(".close_interview").live("click",function(){
+        if (confirm('Are you sure ?')) {
+          var interview_id = $(this).attr("interview_id")
+          var url_ajax = 'close'
+          $.ajax({
+            url : url_ajax,
+            type : "POST",
+            data : 'id=' + interview_id ,
+            dataType : "script",
+            success : function() {
+              }
+          });
+        }
+        return false
+     });
+   });
+</script>

@@ -54,6 +54,16 @@
       </div>
     </div>
     <div class="container">
+      <% if flash[:notice] %>
+        <p class="alert alert-success">
+          <%= flash[:notice] %><span class="close" data-dismiss="alert" href="#">&times;</span>
+        </p>
+      <% end %>
+      <% if flash[:error] %>
+        <p class="alert alert-error">
+          <%= flash[:error] %><span class="close" data-dismiss="alert" href="#">&times;</span>
+        </p>
+      <% end %>
       <%= yield %>
     </div>
 
@@ -79,4 +89,11 @@
       </div>
     </div>
   </body>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("span.close").live("click", function() {
+      $(this).parent().hide();
+      });
+    });
+  </script>
 </html>

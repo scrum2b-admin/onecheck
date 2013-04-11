@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid
   # attr_accessible :title, :body
+    
+  def admin?
+    is_admin
+  end
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -29,5 +33,5 @@ class User < ActiveRecord::Base
       end
     end
   end
-
+  
 end

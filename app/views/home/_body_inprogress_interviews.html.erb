@@ -9,13 +9,21 @@
       <th>Due date</th>
       <% if current_user && !@inprogress_interview.empty? %>
         <th></th>
-        <th></th>
+        <% if current_user.admin? %>
+          <th></th>
+        <% end %>
       <% end %>
     </tr>
   </thead>
   <tbody>
+    <% if @inprogress_interview.empty? %>
+      <tr class="info">
+        <td colspan="6">No data to show</td>
+      </tr>
+    <% else%>
       <% @inprogress_interview.each do |interview|%>
         <%= render :partial => "home/inprogress_interview" , :locals => {:interview => interview}%>
       <% end %>
+    <% end %>
   </tbody>
 </table>
