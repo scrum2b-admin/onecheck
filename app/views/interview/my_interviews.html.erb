@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% if  @my_applied_interviews.empty? %>
+    <% if  @my_applied_interviews.present? %>
       <tr class="info">
         <td colspan="6">No data to show</td>
       </tr>
@@ -32,7 +32,7 @@
 </table>
 <br />
 <h4>My own interviews</h4>
-<%= render :partial => "my_own_interviews" , :locals => {:my_own_interviews => @my_own_interviews}%>
+<%#= render :partial => "my_own_interviews" , :locals => {:my_own_interviews => @my_own_interviews}%>
 
 <script>
    jQuery(function() {

@@ -10,6 +10,13 @@ class Interview < ActiveRecord::Base
 
   attr_accessible :title, :time_test, :start_date, :due_date, :user_id
 
+  def self.parse(params,user_id)
+    @interview = Interview.new(:title => params[:title],:start_date => params[:start_date],:user_id => user_id,
+                              :due_date => params[:due_date], :time_test => params[:time_test])
+    @interview.save
+    return @interview
+  end
+
   def create_questions(params,interview_id)
     return unless params[:content].present?
 
