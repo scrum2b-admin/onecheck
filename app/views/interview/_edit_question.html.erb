@@ -1,0 +1,23 @@
+<div class="question_edit_<%= question.id%>" style="display: none">
+  <p><span style="font-size: 15px;color: #0077B3;float:left;">Câu<%= index_qs + 1%> : </span>Question content:</p>
+  <input type="text" name="interview[questions][<%= index_qs + 1 %>][id]" value="<%= question.id%>" style="display: none"/>
+  <input type="text" name="interview[questions][<%= index_qs + 1 %>][content]" class="question_content" value="<%= question.content%>"/>
+  <p>Question type</p>
+    <select name="interview[questions][<%= index_qs + 1 %>][question_type]" class="btn">
+      <option value="multil">Multil Choice </option>
+      <option value="exact">Exact answer </option>
+      <option value="open">Open answer </option>
+    </select>
+    <p>Choice answers</p>
+  <div class="list_answers">
+      <% question.answers.each_with_index do |answer,index_as|%>
+        <div class="answers_<%= index_as+1%> find_answer">
+          <p>Answer No.<span class="no_answer"><%= index_as + 1%></span>:<a class="remove_answer_on_edit" value="<%= answer.id%>">Remove choice</a></p>
+          <input type="text" value="<%= answer.id %>" name="interview[questions][<%= index_qs + 1 %>][answers][<%= index_as +1 %>][id]" style="display: none" /> 
+          <input type="text" value="<%= answer.content %>" name="interview[questions][<%= index_qs + 1 %>][answers][<%= index_as +1 %>][content]" /> <input type="checkbox" name="interview[questions][1][answers][1][is_correct]"/> Is correct
+        </div>
+      <% end %>
+  </div>
+  <a class="add_answer_on_edit" answer_max_number="<%= Answer.count_answers(question.id)%>" question_number="<%= index_qs +1 %>" >Add answer</a>
+  <br /><br />
+</div>
