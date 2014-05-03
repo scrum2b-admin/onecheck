@@ -6,7 +6,7 @@ class InterviewController < ApplicationController
   end
   
   def show
-    @interview = Interview.find(params[:id])
+    @interview = Interview.find_by_id(params[:id])
     @questions = @interview.questions
   end
   
@@ -16,15 +16,15 @@ class InterviewController < ApplicationController
   end
 
   def create
-    @interview = Interview.parse(params[:interview],current_user.id)
+    @interview = Interview.parse(params[:interview], current_user.id)
     
     if @interview.save
       flash[:notice] = "You have successfully to Create the Interview: #{@interview.title}"
-      params[:interview][:questions].each do |key,value|
-        @question=Question.parse(value,@interview.id) if value[:content] != "" 
+      params[:interview][:questions].each do |key, value|
+        @question = Question.parse(value, @interview.id) if value[:content] != "" 
         if @question
-          value[:answers].each do |k,v|
-            @answer = Answer.parse(v,@question.id) if v[:content] != ""
+          value[:answers].each do |k, v|
+            @answer = Answer.parse(v, @question.id) if v[:content] != ""
           end
         end
       end
@@ -55,24 +55,23 @@ class InterviewController < ApplicationController
 
   def update
     @interview = Interview.find(params[:interview][:id])
-    @interview.update_attributes(:title => params[:interview][:title],:start_date => params[:interview][:start_date],
+    @interview.update_attributes(:title => params[:interview][:title],:start_date => params[:interview][:start_date], 
                                  :due_date => params[:interview][:due_date], :time_test => params[:interview][:time_test])
-    
-    redirect_to(:controller => "interview", :action => "show", :id => params[:interview][:id]) unless params[:interview][:questions]
-    params[:interview][:questions].each do |key,value|
-      if value[:id] && value[:content] != "" 
-        @question = Question.update(value)
-        value[:answers].each do |k,v|
-          @answer = v[:id] ? Answer.update(v) : Answer.parse(v, value[:id])
-        end
-      elsif !value[:id] && value[:content] != "" 
-        @question = Question.parse(value, @interview.id)
-        if @question
-          value[:answers].each do |k,v|
-            @answer = Answer.parse(v, @question.id) if v[:content] != ""
-          end
-        end
-      end
+    if params[:interview][:questions]
+      params[:interview][:questions].each do |key,value|
+         if value[:id] == ""
+           @interview.create_questions_on_edit(value,@interview.id)
+         else
+           @interview.update_questions_on_edit(value)
+         end
+       end
+    end
+
+    if @access == true 
+      @interview.valid? 
+      redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]  
+    else
+       redirect_to :controller => "interview", :action => "edit", :id => params[:interview][:id] 
     end
     flash[:notice] = "You have successfully to update the Interview: #{@interview.title}"
     redirect_to :controller => "interview", :action => "show", :id => params[:interview][:id]
